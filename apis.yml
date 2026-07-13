@@ -1,0 +1,161 @@
+aid: gupshup
+url: https://raw.githubusercontent.com/api-evangelist/gupshup/refs/heads/main/apis.yml
+name: Gupshup
+kind: company
+description: Gupshup is a conversational messaging and CPaaS platform (headquartered
+  in India) that lets businesses send and receive messages across WhatsApp, SMS, RCS,
+  and other channels, plus build chatbots and conversational AI journeys. The
+  developer platform exposes REST APIs on api.gupshup.io - most prominently the
+  WhatsApp Business API (send session and template messages, opt-in management,
+  templates, media, and inbound webhooks) - authenticated with an apikey header and
+  scoped to a registered app. Separate SMS, RCS, and Partner API surfaces are also
+  documented.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Messaging
+- WhatsApp
+- Conversational AI
+- CPaaS
+- SMS
+- RCS
+- India
+- Chatbots
+- Business Messaging
+- Communications
+created: '2026-07-12'
+modified: '2026-07-12'
+specificationVersion: '0.19'
+apis:
+- aid: gupshup:gupshup-whatsapp-messaging-api
+  name: Gupshup WhatsApp Messaging API
+  tags:
+  - WhatsApp
+  - Messaging
+  - Business Messaging
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.gupshup.io/reference/msg
+  baseURL: https://api.gupshup.io/wa/api/v1
+  properties:
+  - url: https://docs.gupshup.io/docs/whatsapp-api-introduction
+    type: Documentation
+  - url: https://docs.gupshup.io/reference/msg
+    type: APIReference
+  - url: openapi/gupshup-openapi.yml
+    type: OpenAPI
+  - url: collections/gupshup.postman_collection.json
+    type: PostmanCollection
+  - url: collections/gupshup.opencollection.json
+    type: OpenCollection
+  description: Send session (user-initiated, 24-hour window) WhatsApp messages of many
+    types - text, image, file, audio, video, sticker, location, contact, and
+    interactive list / quick-reply - from a registered WhatsApp Business number via
+    POST /msg, with delivery events returned to your webhook.
+- aid: gupshup:gupshup-whatsapp-template-api
+  name: Gupshup WhatsApp Template Messaging API
+  tags:
+  - WhatsApp
+  - Templates
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.gupshup.io/docs/template-messages
+  baseURL: https://api.gupshup.io/wa/api/v1
+  properties:
+  - url: https://docs.gupshup.io/docs/template-messages
+    type: Documentation
+  - url: openapi/gupshup-openapi.yml
+    type: OpenAPI
+  - url: collections/gupshup.postman_collection.json
+    type: PostmanCollection
+  description: Send pre-approved WhatsApp template (HSM) messages to opted-in users
+    outside the 24-hour session window via POST /template/msg, and list an app's
+    templates and their approval status via GET /template/list/{appName}.
+- aid: gupshup:gupshup-whatsapp-optin-api
+  name: Gupshup WhatsApp Opt-In Management API
+  tags:
+  - WhatsApp
+  - Opt-In
+  - Consent
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.gupshup.io/docs/optin-message
+  baseURL: https://api.gupshup.io/wa/api/v1
+  properties:
+  - url: https://docs.gupshup.io/docs/optin-message
+    type: Documentation
+  - url: openapi/gupshup-openapi.yml
+    type: OpenAPI
+  description: Mark a user as opted-in or opted-out for an app and list the users who
+    have interacted with your business number and their opt-in status. Required before
+    template notifications can be delivered. Legacy opt-in/opt-out APIs are not
+    supported for apps created after Aug 2025.
+- aid: gupshup:gupshup-sms-api
+  name: Gupshup SMS API
+  tags:
+  - SMS
+  - Messaging
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.gupshup.io/docs/sms-api-introduction
+  baseURL: https://api.gupshup.io/sm/api/v1
+  properties:
+  - url: https://docs.gupshup.io/docs/sms-api-introduction
+    type: Documentation
+  - url: https://docs.gupshup.io/docs/send-message-to-single-number
+    type: Documentation
+  description: Broadcast SMS to a single number or many numbers programmatically via
+    POST /msg on the /sm surface. Note - Gupshup has announced end-of-life for the
+    /sm endpoints and recommends migrating SMS traffic to the /wa messaging surface.
+- aid: gupshup:gupshup-rcs-api
+  name: Gupshup RCS API
+  tags:
+  - RCS
+  - Rich Messaging
+  - Business Messaging
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.gupshup.io/docs/rcs-api-introduction
+  properties:
+  - url: https://docs.gupshup.io/docs/rcs-api-introduction
+    type: Documentation
+  - url: https://docs.gupshup.io/docs/send-rcs-message
+    type: APIReference
+  description: Send RCS (Rich Communication Services) business messages - rich cards,
+    carousels, suggested replies, and media. RCS is onboarding-gated (username /
+    password issued by Gupshup) and served through the Gupshup Enterprise messaging
+    gateway rather than the apikey-based api.gupshup.io REST surface.
+- aid: gupshup:gupshup-partner-api
+  name: Gupshup Partner API
+  tags:
+  - Partner
+  - WhatsApp
+  - Passthrough
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://partner-docs.gupshup.io/docs/whatsapp-passthrough-apis-for-partners
+  baseURL: https://partner.gupshup.io/partner
+  properties:
+  - url: https://partner-docs.gupshup.io/docs/whatsapp-passthrough-apis-for-partners
+    type: Documentation
+  description: Token-authenticated Partner surface (partner.gupshup.io) for BSPs and
+    resellers - manage apps, templates, subscriptions/callbacks, and send messages
+    through Meta-format passthrough endpoints (e.g. POST /partner/app/{appId}/v3/message).
+    Uses a partner token / app access token rather than the per-app apikey header.
+common:
+- type: Authentication
+  url: authentication/gupshup-authentication.yml
+- type: DomainSecurity
+  url: security/gupshup-domain-security.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/gupshup
+- type: Website
+  url: https://www.gupshup.io
+- type: Documentation
+  url: https://docs.gupshup.io
+- type: Plans
+  url: plans/gupshup-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/gupshup-rate-limits.yml
+- type: FinOps
+  url: finops/gupshup-finops.yml
+- url: https://www.gupshup.io/resources/blog
+  type: Blog
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

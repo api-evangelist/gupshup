@@ -1,0 +1,114 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Gupshup
+providerId: gupshup
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Messaging
+- WhatsApp
+- CPaaS
+- SMS
+- RCS
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Gupshup spend. Gupshup is a usage-based conversational messaging
+  platform: cost accrues per message per channel. For WhatsApp, each billable
+  message carries two stacked components - the Meta per-message rate (which
+  depends on message category: marketing, utility, authentication, service; and on
+  the destination country) plus a Gupshup platform / BSP fee. Since Meta's July
+  2025 shift to per-message billing, utility and authentication categories use
+  telescopic (volume-tiered) rates, so higher monthly volume lowers the unit rate.
+  SMS and RCS accrue their own per-message rates by country and route. Accounts
+  are wallet / prepaid-credit funded. The dominant cost drivers are message volume,
+  category mix, and destination geography rather than any flat API subscription.
+notes: >-
+  Per-message rates are not reconciled here - they change frequently and vary by
+  country and category. Verify against Gupshup's pricing pages and Meta's WhatsApp
+  pricing schedule. The largest optimization levers are shifting eligible traffic
+  into free service-window / utility messages, minimizing marketing-category
+  sends, and consolidating volume to reach lower telescopic tiers.
+sources:
+- https://www.gupshup.io
+- https://support.gupshup.io/hc/en-us/articles/360012075779-Whats-is-Gupshup-s-pricing-model-What-is-Gupshup-fee-and-WhatsApp-fee-in-pricing
+- https://support.gupshup.io/hc/en-us/articles/38821010267673-WhatsApp-Pricing-Updates-2024-2025
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Gupshup
+serviceCategory: Conversational Messaging and CPaaS
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Prepaid / Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Gupshup Conversational Messaging
+  ServiceCategory: Conversational Messaging and CPaaS
+  ProviderName: Gupshup
+  PublisherName: Gupshup
+  InvoiceIssuerName: Gupshup
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: whatsapp_messages
+  description: WhatsApp messages billed per message; rate depends on category (marketing/utility/authentication/service) and destination country, plus Gupshup platform fee.
+  unit: messages
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+  - category
+  - country
+- name: meta_message_fee
+  description: The Meta per-message component of a WhatsApp send, telescopic for utility/authentication.
+  unit: messages
+  aggregation: sum
+  dimensions:
+  - category
+  - country
+- name: gupshup_platform_fee
+  description: The Gupshup / BSP platform fee added per message.
+  unit: messages
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+- name: sms_messages
+  description: SMS messages billed per segment by country and route.
+  unit: messages
+  aggregation: sum
+  dimensions:
+  - account
+  - country
+- name: rcs_messages
+  description: RCS messages billed per message by type and country.
+  unit: messages
+  aggregation: sum
+  dimensions:
+  - account
+  - country
+principles:
+- name: Visibility
+  description: Track message volume and spend broken down by channel, app, message category, and destination country; reconcile Meta fee vs Gupshup fee components.
+- name: Allocation
+  description: Name apps per team/use-case so per-message spend maps to internal cost centers and campaigns.
+- name: Optimization
+  description: Prefer free service-window and utility messages over marketing; consolidate volume to reach lower telescopic tiers; retire deprecating /sm SMS routes; right-size opt-in lists to avoid wasted sends.
+- name: Accountability
+  description: Assign owners per app/campaign; review monthly wallet burn against budget and message quality rating (which affects tier and deliverability).
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

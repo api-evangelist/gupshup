@@ -1,0 +1,22 @@
+generated: '2026-07-12'
+method: derived
+source: openapi/gupshup-openapi.yml
+summary:
+  types:
+  - apiKey
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  keyName: apikey
+  description: >-
+    Account API key sent in the `apikey` HTTP request header on every call to
+    api.gupshup.io. Obtained from the Gupshup dashboard. The key scopes requests
+    to your account; individual operations additionally reference a registered app
+    by name (`src.name` field or the appName path segment). Self-serve - no OAuth
+    flow. The Partner API (partner.gupshup.io) uses a different model: a partner
+    token / app access token passed in the Authorization header rather than the
+    per-app apikey.
+  sources:
+  - openapi/gupshup-openapi.yml
+  - https://docs.gupshup.io/reference/msg

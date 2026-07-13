@@ -1,0 +1,122 @@
+aid: gupshup
+name: Gupshup
+review:
+  question: Does Gupshup expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-12'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Gupshup's public developer surface is
+    request/response REST over HTTPS (api.gupshup.io) plus INBOUND WEBHOOKS -
+    Gupshup POSTs message and event notifications (enqueued, sent, delivered,
+    read, failed, inbound user messages) to a callback URL / subscription you
+    configure. A webhook is server-to-your-endpoint HTTP, not a server-push
+    transport hosted on Gupshup's own API, and there is no documented WebSocket
+    or SSE stream on Gupshup's API to model. (Callback URLs are additionally
+    being migrated to a Subscription API per Gupshup's 2025 updates; that
+    remains an inbound-HTTP webhook model, not WebSocket.)
+findings:
+  summary: |
+    Gupshup does not publish a documented public WebSocket API. Gupshup is a
+    conversational messaging / CPaaS platform. Its developer APIs are REST over
+    HTTPS on host api.gupshup.io, authenticated with an `apikey` header and
+    scoped to a registered app. The flagship surface is the WhatsApp Business
+    API under https://api.gupshup.io/wa/api/v1 (send session message, send
+    template message, opt-in / opt-out, users, template list). A legacy SMS
+    surface exists under /sm/api/v1 (announced end-of-life; migrate to /wa), an
+    RCS surface is served through the Gupshup Enterprise gateway
+    (enterprise.smsgupshup.com) behind username/password onboarding, and a
+    token-authenticated Partner surface exists on partner.gupshup.io. Delivery
+    and inbound events are delivered by outbound webhooks / the Subscription
+    API to a callback URL you host. No realtime, bidirectional WebSocket
+    (ws:// or wss://) endpoint is documented anywhere on Gupshup's API.
+  accessModel: |
+    Self-serve. A developer signs up, creates an app, links a WhatsApp Business
+    number, and obtains an account `apikey` from the dashboard. The apikey is
+    sent as an HTTP header and scopes requests to the account; individual
+    operations additionally reference the app by name (`src.name` / appName path
+    segment). The Partner API instead uses a partner token / app access token
+    obtained through the partner portal.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.gupshup.io/wa/api/v1
+      documented: true
+      note: WhatsApp Business API. apikey header auth. SMS surface is /sm/api/v1 (deprecating).
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: >-
+        Gupshup POSTs message/event notifications (enqueued, sent, delivered,
+        read, failed, inbound messages, media) to a callback URL / Subscription
+        you configure. Server-to-your-endpoint HTTP, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: >-
+        No WebSocket endpoint is documented in Gupshup's WhatsApp, SMS, RCS, or
+        Partner API references as of the review date.
+  endpointsConfirmedRest:
+    - POST https://api.gupshup.io/wa/api/v1/msg
+    - POST https://api.gupshup.io/wa/api/v1/template/msg
+  endpointsModeledFromDocs:
+    - GET  https://api.gupshup.io/wa/api/v1/template/list/{appName}
+    - POST https://api.gupshup.io/wa/api/v1/app/opt/in/{appName}
+    - POST https://api.gupshup.io/wa/api/v1/app/opt/out/{appName}
+    - GET  https://api.gupshup.io/wa/api/v1/users/{appName}
+    - GET  https://api.gupshup.io/wa/api/v2/wallet/balance
+    - POST https://api.gupshup.io/sm/api/v1/msg
+    - POST https://partner.gupshup.io/partner/app/{appId}/v3/message
+  modelingNotes: |
+    Only the two send operations (msg, template/msg) are directly confirmed
+    against Gupshup's public API reference (docs.gupshup.io/reference/msg and
+    the template-messages docs). The opt-in / opt-out, users, template-list,
+    and wallet-balance operations are documented in Gupshup's WhatsApp API
+    guide - historically under the /sm path, now migrating to /wa - and their
+    request/response schemas in openapi/gupshup-openapi.yml are MODELED from
+    prose documentation, not derived from a machine-readable source. Gupshup
+    uses application/x-www-form-urlencoded request bodies and returns an
+    asynchronous accept with a messageId used to correlate webhook events.
+    The SMS /sm surface is deprecating (end-of-life announced); RCS is served
+    on a separate Enterprise gateway host and is onboarding-gated, so it is
+    listed in apis.yml as a documented channel but is not modeled in the
+    OpenAPI. The Partner surface uses a different auth model (partner token)
+    and is likewise represented by documentation links only.
+sources:
+  - url: https://docs.gupshup.io/reference/msg
+    type: APIReference
+    note: Confirmed POST /wa/api/v1/msg, apikey header, form fields channel/source/destination/message/src.name.
+  - url: https://docs.gupshup.io/docs/template-messages
+    type: Documentation
+    note: Confirmed POST /wa/api/v1/template/msg for pre-approved template messages to opted-in users.
+  - url: https://docs.gupshup.io/docs/whatsapp-api-introduction
+    type: Documentation
+    note: WhatsApp Business API overview; apikey auth; app-scoped.
+  - url: https://www.gupshup.io/developer/guide?name=whatsapp-api-documentation
+    type: Documentation
+    note: WhatsApp API guide documenting opt-in/out (/app/opt/in|out/{app}), users list, template list, wallet balance (historically /sm path).
+  - url: https://support.gupshup.io/hc/en-us/articles/34057158742297-Prepare-for-sm-endpoints-End-of-Life-DEPRECATED
+    type: Documentation
+    note: /sm endpoints end-of-life; migrate to /wa messaging surface.
+  - url: https://docs.gupshup.io/docs/sms-api-introduction
+    type: Documentation
+    note: SMS API introduction and single/multi-number send.
+  - url: https://docs.gupshup.io/docs/rcs-api-introduction
+    type: Documentation
+    note: RCS API served via Gupshup Enterprise gateway; onboarding-gated (username/password).
+  - url: https://partner-docs.gupshup.io/docs/whatsapp-passthrough-apis-for-partners
+    type: Documentation
+    note: Partner passthrough APIs (Meta format), token auth, POST /partner/app/{appId}/v3/message.
+  - url: https://support.gupshup.io/hc/en-us/articles/4402455342233-How-do-I-set-a-webhook-callback-URL-for-my-app
+    type: Documentation
+    note: Callback/webhook URL and Subscription API for inbound message and delivery events. Inbound HTTP, not WebSocket.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Gupshup's own public API is
+    request/response REST (apikey-authenticated) plus outbound webhooks /
+    Subscription callbacks to a URL you host. No AsyncAPI document was created
+    because there is no server-push transport (WebSocket or SSE) on Gupshup's
+    own API to model; event delivery is server-to-your-endpoint HTTP.

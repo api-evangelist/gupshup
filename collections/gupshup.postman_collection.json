@@ -1,0 +1,151 @@
+{
+  "info": {
+    "name": "Gupshup WhatsApp Business API",
+    "description": "Send and manage WhatsApp Business messages through Gupshup. Base URL: https://api.gupshup.io/wa/api/v1. Requests authenticate with an apikey header scoped to your account and its registered app. The send (/msg) and send-template (/template/msg) operations are confirmed against Gupshup's API reference; opt-in/out, users, and template-list are modeled from documentation. Requests use application/x-www-form-urlencoded bodies.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "apikey", "type": "string" },
+      { "key": "value", "value": "{{apikey}}", "type": "string" },
+      { "key": "in", "value": "header", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.gupshup.io/wa/api/v1", "type": "string" },
+    { "key": "apikey", "value": "", "type": "string" },
+    { "key": "appName", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Messaging",
+      "item": [
+        {
+          "name": "Send a WhatsApp session message",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "apikey", "value": "{{apikey}}" },
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                { "key": "channel", "value": "whatsapp" },
+                { "key": "source", "value": "919000000000" },
+                { "key": "destination", "value": "919111111111" },
+                { "key": "message", "value": "{\"type\":\"text\",\"text\":\"Hello from Gupshup\"}" },
+                { "key": "src.name", "value": "{{appName}}" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/msg", "host": ["{{baseUrl}}"], "path": ["msg"] },
+            "description": "Sends a WhatsApp session message (text/image/file/audio/video/sticker/location/contact/list/quick_reply). Confirmed endpoint."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Templates",
+      "item": [
+        {
+          "name": "Send a WhatsApp template message",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "apikey", "value": "{{apikey}}" },
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                { "key": "channel", "value": "whatsapp" },
+                { "key": "source", "value": "919000000000" },
+                { "key": "destination", "value": "919111111111" },
+                { "key": "template", "value": "{\"id\":\"00000000-0000-0000-0000-000000000000\",\"params\":[\"Kin\",\"ORD-42\"]}" },
+                { "key": "src.name", "value": "{{appName}}" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/template/msg", "host": ["{{baseUrl}}"], "path": ["template", "msg"] },
+            "description": "Sends a pre-approved template (HSM) message to an opted-in user. Confirmed endpoint."
+          }
+        },
+        {
+          "name": "List an app's templates",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/template/list/:appName",
+              "host": ["{{baseUrl}}"],
+              "path": ["template", "list", ":appName"],
+              "variable": [{ "key": "appName", "value": "{{appName}}" }]
+            },
+            "description": "Lists templates registered for an app and their approval status. Modeled from documentation."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Opt-In",
+      "item": [
+        {
+          "name": "Mark a user opt-in",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "apikey", "value": "{{apikey}}" },
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [{ "key": "user", "value": "919111111111" }]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/app/opt/in/:appName",
+              "host": ["{{baseUrl}}"],
+              "path": ["app", "opt", "in", ":appName"],
+              "variable": [{ "key": "appName", "value": "{{appName}}" }]
+            },
+            "description": "Records user consent to receive messages. Modeled from documentation. Legacy opt-in APIs are not supported for apps created after Aug 2025."
+          }
+        },
+        {
+          "name": "Mark a user opt-out",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "apikey", "value": "{{apikey}}" },
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [{ "key": "user", "value": "919111111111" }]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/app/opt/out/:appName",
+              "host": ["{{baseUrl}}"],
+              "path": ["app", "opt", "out", ":appName"],
+              "variable": [{ "key": "appName", "value": "{{appName}}" }]
+            },
+            "description": "Records that a user opted out. Modeled from documentation."
+          }
+        },
+        {
+          "name": "List interacted users and opt-in status",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/users/:appName",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", ":appName"],
+              "variable": [{ "key": "appName", "value": "{{appName}}" }]
+            },
+            "description": "Lists users who interacted with your business number and their opt-in status. Modeled from documentation."
+          }
+        }
+      ]
+    }
+  ]
+}

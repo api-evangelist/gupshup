@@ -1,0 +1,159 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Gupshup
+providerId: gupshup
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Messaging
+- WhatsApp
+- CPaaS
+- SMS
+- RCS
+- Plans
+description: >-
+  Gupshup prices conversational messaging on a usage basis, per message per
+  channel, on top of the underlying carrier / platform fee. For WhatsApp, the
+  total cost per message is Meta's per-message rate (which varies by category -
+  marketing, utility, authentication, service - and by destination country) plus
+  a Gupshup platform/BSP fee. Following Meta's July 2025 move from per-conversation
+  to per-message billing, WhatsApp is billed per delivered template/message with
+  telescopic (volume-tiered) rates for utility and authentication. SMS and RCS are
+  similarly billed per message. Gupshup accounts are wallet / prepaid-credit based;
+  there is no published flat monthly API subscription for core messaging. Exact
+  per-message rates are not reconciled here and must be verified on Gupshup's
+  pricing pages, as they change frequently and vary by country and category.
+notes: >-
+  Rates below are representative figures gathered from public sources in 2025-2026
+  and are illustrative only. Meta rates and Gupshup fees change frequently and
+  differ by destination country and message category. Verify current numbers on
+  Gupshup's pricing pages and Meta's WhatsApp pricing schedule during
+  reconciliation.
+sources:
+- https://www.gupshup.io
+- https://support.gupshup.io/hc/en-us/articles/360012075779-Whats-is-Gupshup-s-pricing-model-What-is-Gupshup-fee-and-WhatsApp-fee-in-pricing
+- https://support.gupshup.io/hc/en-us/articles/38821010267673-WhatsApp-Pricing-Updates-2024-2025
+plans:
+- id: gupshup-whatsapp-usage
+  name: WhatsApp Business - Per Message
+  type: usage
+  description: >-
+    Pay-as-you-go WhatsApp Business messaging billed per message. Total cost =
+    Meta per-message rate (by category and country) + Gupshup platform/BSP fee.
+    Utility and authentication categories follow telescopic volume-tiered rates.
+    Service/session messages within the customer service window and certain
+    utility templates in-window may be free of Meta charges.
+  entries:
+  - label: Marketing Message
+    name: wa_marketing_message
+    type: usage
+    metric: messages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: Meta marketing rate by country + Gupshup fee (India ~INR 0.88 Meta + ~USD 0.001 BSP fee)
+    userMultiplied: false
+  - label: Utility Message
+    name: wa_utility_message
+    type: usage
+    metric: messages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: Meta utility rate by country (telescopic) + Gupshup fee
+    userMultiplied: false
+  - label: Authentication Message
+    name: wa_authentication_message
+    type: usage
+    metric: messages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: Meta authentication rate by country (telescopic) + Gupshup fee
+    userMultiplied: false
+  - label: Service Message
+    name: wa_service_message
+    type: usage
+    metric: messages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: Often free of Meta charge within the customer service window; Gupshup fee may apply
+    userMultiplied: false
+  elements:
+  - name: WhatsApp Business API
+  - name: Template and Session Messaging
+  - name: Opt-In Management
+  - name: Inbound Webhooks / Subscriptions
+- id: gupshup-sms-usage
+  name: SMS - Per Message
+  type: usage
+  description: >-
+    Pay-as-you-go SMS billed per message segment, varying by destination country
+    and route. The /sm SMS endpoints are being retired; new SMS traffic is
+    directed to the /wa messaging surface.
+  entries:
+  - label: SMS Message
+    name: sms_message
+    type: usage
+    metric: messages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: per-segment rate by country and route (see pricing)
+    userMultiplied: false
+  elements:
+  - name: Single and Bulk SMS
+  - name: Delivery Receipts
+- id: gupshup-rcs-usage
+  name: RCS - Per Message
+  type: usage
+  description: >-
+    Pay-as-you-go RCS business messaging billed per message, by message type
+    (basic / single / conversational) and country. Onboarding-gated through the
+    Gupshup Enterprise gateway.
+  entries:
+  - label: RCS Message
+    name: rcs_message
+    type: usage
+    metric: messages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: per-message rate by type and country (see pricing)
+    userMultiplied: false
+  elements:
+  - name: Rich Cards and Carousels
+  - name: Suggested Replies and Actions
+- id: gupshup-enterprise
+  name: Enterprise / Custom
+  type: enterprise
+  description: >-
+    Negotiated volume pricing, dedicated support, and multi-channel commercial
+    terms for high-volume senders and BSP/partner arrangements. Contact Gupshup.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Volume Rate Cards
+  - name: Partner / BSP Access
+  - name: Dedicated Support and SLAs
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,66 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Gupshup
+providerId: gupshup
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Messaging
+- WhatsApp
+- CPaaS
+- Rate Limiting
+- Quotas
+description: >-
+  Gupshup does not publish a single fixed numeric request-rate limit for the
+  messaging API. Throughput on WhatsApp is governed primarily by the underlying
+  WhatsApp Business Platform: each business phone number has a Meta messaging tier
+  (1K, 10K, 100K, or unlimited unique customers per rolling 24 hours) that
+  increases automatically with quality and volume, and Meta enforces its own
+  per-second throughput ceilings on template sends. Gupshup applies platform-level
+  API throttling on top of that. Because messages are accepted asynchronously and
+  correlated later via webhook events, senders should batch, respect HTTP 429
+  responses, and back off. Numeric per-account API limits are not documented as of
+  the review date.
+notes: >-
+  Confirm your number's current messaging tier and Meta's per-second send limits
+  in the Gupshup dashboard / Meta Business Manager. Values here are qualitative
+  because Gupshup does not publish exact per-endpoint request caps.
+sources:
+- https://docs.gupshup.io/reference/msg
+- https://docs.gupshup.io/docs/whatsapp-api-introduction
+- https://support.gupshup.io/hc/en-us/articles/38821010267673-WhatsApp-Pricing-Updates-2024-2025
+responseCodes:
+  throttled: 429
+limits:
+- name: Messaging API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for the messaging API; platform throttling applies.
+- name: WhatsApp Messaging Tier
+  scope: phone_number
+  metric: unique_recipients
+  limit: 1K / 10K / 100K / unlimited per 24h (Meta tier)
+  notes: Business-initiated conversations are capped by the number's Meta messaging tier, which scales with quality and volume.
+- name: Template Send Throughput
+  scope: phone_number
+  metric: messages_per_second
+  limit: Meta-enforced (varies by tier)
+  notes: Meta enforces per-second throughput ceilings on template message sends.
+- name: Inbound / Session Messages
+  scope: phone_number
+  metric: messages
+  limit: no fixed cap within the 24h service window
+  notes: User-initiated session replies are not subject to the business-initiated tier cap.
+policies:
+- name: Asynchronous Acceptance
+  description: Messages are accepted asynchronously (HTTP 2xx with a messageId); final delivery status arrives via webhook events (enqueued, sent, delivered, read, failed).
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+- name: Quality-Based Tiering
+  description: Meta raises or lowers a number's messaging tier based on message quality rating and volume; low quality can throttle or restrict sending.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

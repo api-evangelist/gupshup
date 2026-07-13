@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gupshup WhatsApp Business API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "key": "apikey",
+        "value": "{{apikey}}",
+        "in": "header"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Messaging", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Send a WhatsApp session message.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gupshup.io/wa/api/v1/msg",
+            "headers": [
+              { "name": "apikey", "value": "{{apikey}}" },
+              { "name": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "body": {
+              "type": "urlencoded",
+              "data": "channel=whatsapp&source=919000000000&destination=919111111111&message=%7B%22type%22%3A%22text%22%2C%22text%22%3A%22Hello%20from%20Gupshup%22%7D&src.name={{appName}}"
+            }
+          },
+          "docs": "Sends a WhatsApp session message. Confirmed endpoint."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Templates", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Send a WhatsApp template message.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gupshup.io/wa/api/v1/template/msg",
+            "headers": [
+              { "name": "apikey", "value": "{{apikey}}" },
+              { "name": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "body": {
+              "type": "urlencoded",
+              "data": "channel=whatsapp&source=919000000000&destination=919111111111&template=%7B%22id%22%3A%22TEMPLATE_ID%22%2C%22params%22%3A%5B%22Kin%22%5D%7D&src.name={{appName}}"
+            }
+          },
+          "docs": "Sends a pre-approved template (HSM) message to an opted-in user. Confirmed endpoint."
+        },
+        {
+          "info": { "name": "List an app's templates.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gupshup.io/wa/api/v1/template/list/:appName",
+            "headers": [{ "name": "apikey", "value": "{{apikey}}" }],
+            "params": [
+              { "name": "appName", "value": "", "type": "path", "description": "Gupshup app name." }
+            ]
+          },
+          "docs": "Lists templates registered for an app and their approval status. Modeled from documentation."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Opt-In", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Mark a user opt-in.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gupshup.io/wa/api/v1/app/opt/in/:appName",
+            "headers": [
+              { "name": "apikey", "value": "{{apikey}}" },
+              { "name": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "params": [
+              { "name": "appName", "value": "", "type": "path", "description": "Gupshup app name." }
+            ],
+            "body": { "type": "urlencoded", "data": "user=919111111111" }
+          },
+          "docs": "Records user consent to receive messages. Modeled from documentation."
+        },
+        {
+          "info": { "name": "Mark a user opt-out.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gupshup.io/wa/api/v1/app/opt/out/:appName",
+            "headers": [
+              { "name": "apikey", "value": "{{apikey}}" },
+              { "name": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "params": [
+              { "name": "appName", "value": "", "type": "path", "description": "Gupshup app name." }
+            ],
+            "body": { "type": "urlencoded", "data": "user=919111111111" }
+          },
+          "docs": "Records that a user opted out. Modeled from documentation."
+        },
+        {
+          "info": { "name": "List interacted users and opt-in status.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gupshup.io/wa/api/v1/users/:appName",
+            "headers": [{ "name": "apikey", "value": "{{apikey}}" }],
+            "params": [
+              { "name": "appName", "value": "", "type": "path", "description": "Gupshup app name." }
+            ]
+          },
+          "docs": "Lists users who interacted with your business number and their opt-in status. Modeled from documentation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

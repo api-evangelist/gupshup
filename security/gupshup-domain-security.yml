@@ -1,0 +1,46 @@
+generated: '2026-07-12'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: api.gupshup.io
+  https: true
+  tls_version: TLSv1.3
+  cert_issuer: Amazon RSA 2048 M01
+  cert_expires: Feb 11 23:59:59 2027 GMT
+  hsts: false
+  server: GupShup-Webserver
+  notes: WhatsApp / messaging API host. Fronted by an AWS ALB in ap-south-1 (India). Root path returns 404; API paths are under /wa and /sm.
+- host: partner.gupshup.io
+  https: true
+  tls_version: TLSv1.3
+  cert_issuer: Amazon RSA 2048 M04
+  cert_expires: Mar 11 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  server: AmazonS3
+- host: docs.gupshup.io
+  https: true
+  tls_version: TLSv1.3
+  cert_issuer: Let's Encrypt
+  cert_expires: Sep  8 23:56:53 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  server: cloudflare
+- host: gupshup.io
+  https: true
+  tls_version: TLSv1.3
+  cert_issuer: Thawte TLS RSA CA G1 (DigiCert)
+  cert_expires: Oct 19 23:59:59 2026 GMT
+  hsts: false
+  server: awselb/2.0
+domains:
+- domain: gupshup.io
+  dnssec: false
+  caa: []
+  spf: true
+  spf_policy: ~all
+  dmarc: true
+  dmarc_policy: reject
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
