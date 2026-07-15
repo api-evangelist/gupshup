@@ -138,6 +138,8 @@ apis:
     through Meta-format passthrough endpoints (e.g. POST /partner/app/{appId}/v3/message).
     Uses a partner token / app access token rather than the per-app apikey header.
 common:
+- type: AgenticAccess
+  url: agentic-access/gupshup-agentic-access.yml
 - type: Authentication
   url: authentication/gupshup-authentication.yml
 - type: DomainSecurity
