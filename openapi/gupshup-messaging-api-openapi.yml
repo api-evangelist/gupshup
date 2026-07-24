@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: Gupshup WhatsApp Business Messaging API
+  description: 'REST API for sending and managing WhatsApp Business messages through Gupshup. Messages are sent from a registered WhatsApp Business number that is bound to a Gupshup app; requests are authenticated with an `apikey` header tied to your Gupshup account. This document models the WhatsApp messaging surface on `https://api.gupshup.io/wa/api/v1` - sending session messages, sending pre-approved template (HSM) messages, managing user opt-in / opt-out, listing opted-in users, and listing an app''s templates.
+
+
+    Scope and honesty note: the send-message (`POST /msg`) and send-template (`POST /template/msg`) operations are confirmed against Gupshup''s public API reference. The opt-in / opt-out, users, and template-list operations are documented in Gupshup''s WhatsApp API guide (historically under the `/sm` path, now migrating to the `/wa` path shown here); their request and response bodies are MODELED from the documentation rather than copied from a machine-readable source, and Gupshup uses `application/x-www-form-urlencoded` request bodies. Verify exact field names and response shapes against the live documentation before relying on this specification.'
+  version: '1.0'
+  contact:
+    name: Gupshup
+    url: https://www.gupshup.io
+  x-modeled: true
+servers:
+- url: https://api.gupshup.io/wa/api/v1
+  description: Gupshup WhatsApp Business API
+security:
+- apiKeyAuth: []
+tags:
+- name: Messaging
+  description: Send WhatsApp session messages.
+paths:
+  /msg:
+    post:
+      operationId: sendMessage
+      tags:
+      - Messaging
+      summary: Send a WhatsApp session message
+      description: Sends a WhatsApp message from a registered business number to a recipient. The `message` field is a JSON-encoded object whose `type` selects the message kind (text, image, file, audio, video, sticker, location, contact, or interactive list / quick reply). Confirmed endpoint. Cannot be called directly from a browser / client-side JS.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+      responses:
+        '202':
+          description: Message accepted for asynchronous delivery.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendMessageResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid apikey.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or missing required parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    SendMessageResponse:
+      type: object
+      description: Asynchronous accept response carrying a Gupshup message identifier.
+      properties:
+        status:
+          type: string
+          example: submitted
+        messageId:
+          type: string
+          description: Gupshup unique message identifier used to correlate webhook delivery events.
+    SendMessageRequest:
+      type: object
+      required:
+      - channel
+      - source
+      - destination
+      - message
+      - src.name
+      properties:
+        channel:
+          type: string
+          description: Messaging channel.
+          example: whatsapp
+        source:
+          type: string
+          description: Registered WhatsApp Business phone number (with country code).
+        destination:
+          type: string
+          description: Recipient phone number (with country code).
+        message:
+          type: string
+          description: JSON-encoded message object. Its `type` field selects the kind - text, image, file, audio, video, sticker, location, contact, list, or quick_reply - with type-specific fields alongside.
+          example: '{"type":"text","text":"Hello from Gupshup"}'
+        src.name:
+          type: string
+          description: Gupshup app name registered to the source number.
+        disablePreview:
+          type: boolean
+          description: Optional. Disables URL preview for text messages.
+        encode:
+          type: boolean
+          description: Optional. Controls encoding of text / interactive list messages.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Account API key sent in the `apikey` request header. Available from the Gupshup dashboard. Scopes requests to your account and its registered apps.

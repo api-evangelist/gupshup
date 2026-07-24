@@ -1,0 +1,155 @@
+openapi: 3.0.3
+info:
+  title: Gupshup WhatsApp Business Messaging Opt-In API
+  description: 'REST API for sending and managing WhatsApp Business messages through Gupshup. Messages are sent from a registered WhatsApp Business number that is bound to a Gupshup app; requests are authenticated with an `apikey` header tied to your Gupshup account. This document models the WhatsApp messaging surface on `https://api.gupshup.io/wa/api/v1` - sending session messages, sending pre-approved template (HSM) messages, managing user opt-in / opt-out, listing opted-in users, and listing an app''s templates.
+
+
+    Scope and honesty note: the send-message (`POST /msg`) and send-template (`POST /template/msg`) operations are confirmed against Gupshup''s public API reference. The opt-in / opt-out, users, and template-list operations are documented in Gupshup''s WhatsApp API guide (historically under the `/sm` path, now migrating to the `/wa` path shown here); their request and response bodies are MODELED from the documentation rather than copied from a machine-readable source, and Gupshup uses `application/x-www-form-urlencoded` request bodies. Verify exact field names and response shapes against the live documentation before relying on this specification.'
+  version: '1.0'
+  contact:
+    name: Gupshup
+    url: https://www.gupshup.io
+  x-modeled: true
+servers:
+- url: https://api.gupshup.io/wa/api/v1
+  description: Gupshup WhatsApp Business API
+security:
+- apiKeyAuth: []
+tags:
+- name: Opt-In
+  description: Manage user opt-in / opt-out and list interacted users.
+paths:
+  /app/opt/in/{appName}:
+    parameters:
+    - $ref: '#/components/parameters/AppName'
+    post:
+      operationId: markUserOptIn
+      tags:
+      - Opt-In
+      summary: Mark a user opt-in
+      description: Records that a user has consented to receive messages from the business, enabling template notifications to that number. Modeled from documentation. Legacy opt-in APIs are not supported for apps created after Aug 2025.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OptRequest'
+      responses:
+        '200':
+          description: Opt-in recorded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /app/opt/out/{appName}:
+    parameters:
+    - $ref: '#/components/parameters/AppName'
+    post:
+      operationId: markUserOptOut
+      tags:
+      - Opt-In
+      summary: Mark a user opt-out
+      description: Records that a user has opted out of receiving messages from the business. Modeled from documentation.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OptRequest'
+      responses:
+        '200':
+          description: Opt-out recorded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /users/{appName}:
+    parameters:
+    - $ref: '#/components/parameters/AppName'
+    get:
+      operationId: listUsers
+      tags:
+      - Opt-In
+      summary: List interacted users and opt-in status
+      description: Returns the users who have interacted with your business phone number and their opt-in status. Modeled from documentation.
+      responses:
+        '200':
+          description: A list of users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    UserListResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        phoneCode:
+          type: string
+        phoneNumber:
+          type: string
+        optinStatus:
+          type: string
+          description: Whether the user is opted in.
+        lastInteraction:
+          type: string
+          description: Timestamp of the user's last interaction.
+    StatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+    OptRequest:
+      type: object
+      required:
+      - user
+      properties:
+        user:
+          type: string
+          description: The user's phone number (with country code) to opt in or out.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid apikey.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    AppName:
+      name: appName
+      in: path
+      required: true
+      description: The Gupshup app name registered to the WhatsApp business number.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Account API key sent in the `apikey` request header. Available from the Gupshup dashboard. Scopes requests to your account and its registered apps.
