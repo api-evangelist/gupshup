@@ -10,7 +10,20 @@ description: Gupshup is a conversational messaging and CPaaS platform (headquart
   templates, media, and inbound webhooks) - authenticated with an apikey header and
   scoped to a registered app. Separate SMS, RCS, and Partner API surfaces are also
   documented.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/gupshup.png
 tags:
 - Messaging
 - WhatsApp
@@ -26,67 +39,6 @@ created: '2026-07-12'
 modified: '2026-07-12'
 specificationVersion: '0.19'
 apis:
-- aid: gupshup:gupshup-whatsapp-messaging-api
-  name: Gupshup WhatsApp Messaging API
-  tags:
-  - WhatsApp
-  - Messaging
-  - Business Messaging
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.gupshup.io/reference/msg
-  baseURL: https://api.gupshup.io/wa/api/v1
-  properties:
-  - url: https://docs.gupshup.io/docs/whatsapp-api-introduction
-    type: Documentation
-  - url: https://docs.gupshup.io/reference/msg
-    type: APIReference
-  - url: openapi/gupshup-openapi.yml
-    type: OpenAPI
-  - url: collections/gupshup.postman_collection.json
-    type: PostmanCollection
-  - url: collections/gupshup.opencollection.json
-    type: OpenCollection
-  description: Send session (user-initiated, 24-hour window) WhatsApp messages of many
-    types - text, image, file, audio, video, sticker, location, contact, and
-    interactive list / quick-reply - from a registered WhatsApp Business number via
-    POST /msg, with delivery events returned to your webhook.
-- aid: gupshup:gupshup-whatsapp-template-api
-  name: Gupshup WhatsApp Template Messaging API
-  tags:
-  - WhatsApp
-  - Templates
-  - Notifications
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.gupshup.io/docs/template-messages
-  baseURL: https://api.gupshup.io/wa/api/v1
-  properties:
-  - url: https://docs.gupshup.io/docs/template-messages
-    type: Documentation
-  - url: openapi/gupshup-openapi.yml
-    type: OpenAPI
-  - url: collections/gupshup.postman_collection.json
-    type: PostmanCollection
-  description: Send pre-approved WhatsApp template (HSM) messages to opted-in users
-    outside the 24-hour session window via POST /template/msg, and list an app's
-    templates and their approval status via GET /template/list/{appName}.
-- aid: gupshup:gupshup-whatsapp-optin-api
-  name: Gupshup WhatsApp Opt-In Management API
-  tags:
-  - WhatsApp
-  - Opt-In
-  - Consent
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.gupshup.io/docs/optin-message
-  baseURL: https://api.gupshup.io/wa/api/v1
-  properties:
-  - url: https://docs.gupshup.io/docs/optin-message
-    type: Documentation
-  - url: openapi/gupshup-openapi.yml
-    type: OpenAPI
-  description: Mark a user as opted-in or opted-out for an app and list the users who
-    have interacted with your business number and their opt-in status. Required before
-    template notifications can be delivered. Legacy opt-in/opt-out APIs are not
-    supported for apps created after Aug 2025.
 - aid: gupshup:gupshup-sms-api
   name: Gupshup SMS API
   tags:
@@ -101,9 +53,10 @@ apis:
     type: Documentation
   - url: https://docs.gupshup.io/docs/send-message-to-single-number
     type: Documentation
-  description: Broadcast SMS to a single number or many numbers programmatically via
-    POST /msg on the /sm surface. Note - Gupshup has announced end-of-life for the
-    /sm endpoints and recommends migrating SMS traffic to the /wa messaging surface.
+  description: >-
+    Broadcast SMS to a single number or many numbers programmatically via POST /msg on the /sm surface.
+    Note - Gupshup has announced end-of-life for the /sm endpoints and recommends migrating SMS traffic
+    to the /wa messaging surface.
 - aid: gupshup:gupshup-rcs-api
   name: Gupshup RCS API
   tags:
@@ -117,10 +70,10 @@ apis:
     type: Documentation
   - url: https://docs.gupshup.io/docs/send-rcs-message
     type: APIReference
-  description: Send RCS (Rich Communication Services) business messages - rich cards,
-    carousels, suggested replies, and media. RCS is onboarding-gated (username /
-    password issued by Gupshup) and served through the Gupshup Enterprise messaging
-    gateway rather than the apikey-based api.gupshup.io REST surface.
+  description: >-
+    Send RCS (Rich Communication Services) business messages - rich cards, carousels, suggested replies,
+    and media. RCS is onboarding-gated (username / password issued by Gupshup) and served through the
+    Gupshup Enterprise messaging gateway rather than the apikey-based api.gupshup.io REST surface.
 - aid: gupshup:gupshup-partner-api
   name: Gupshup Partner API
   tags:
@@ -133,10 +86,76 @@ apis:
   properties:
   - url: https://partner-docs.gupshup.io/docs/whatsapp-passthrough-apis-for-partners
     type: Documentation
-  description: Token-authenticated Partner surface (partner.gupshup.io) for BSPs and
-    resellers - manage apps, templates, subscriptions/callbacks, and send messages
-    through Meta-format passthrough endpoints (e.g. POST /partner/app/{appId}/v3/message).
+  description: >-
+    Token-authenticated Partner surface (partner.gupshup.io) for BSPs and resellers - manage apps, templates,
+    subscriptions/callbacks, and send messages through Meta-format passthrough endpoints (e.g. POST /partner/app/{appId}/v3/message).
     Uses a partner token / app access token rather than the per-app apikey header.
+- aid: gupshup:gupshup-messaging-api
+  name: Gupshup Messaging API
+  description: Send WhatsApp session messages.
+  humanURL: https://docs.gupshup.io/reference/msg
+  baseURL: https://api.gupshup.io/wa/api/v1
+  tags:
+  - Messaging
+  properties:
+  - type: OpenAPI
+    url: openapi/gupshup-messaging-api-openapi.yml
+  - type: Documentation
+    url: https://docs.gupshup.io/docs/whatsapp-api-introduction
+  - type: APIReference
+    url: https://docs.gupshup.io/reference/msg
+  - type: PostmanCollection
+    url: collections/gupshup.postman_collection.json
+  - type: OpenCollection
+    url: collections/gupshup.opencollection.json
+  - type: Documentation
+    url: https://docs.gupshup.io/docs/template-messages
+  - type: Documentation
+    url: https://docs.gupshup.io/docs/optin-message
+- aid: gupshup:gupshup-opt-in-api
+  name: Gupshup Opt-In API
+  description: Manage user opt-in / opt-out and list interacted users.
+  humanURL: https://docs.gupshup.io/reference/msg
+  baseURL: https://api.gupshup.io/wa/api/v1
+  tags:
+  - Opt-In
+  properties:
+  - type: OpenAPI
+    url: openapi/gupshup-opt-in-api-openapi.yml
+  - type: Documentation
+    url: https://docs.gupshup.io/docs/whatsapp-api-introduction
+  - type: APIReference
+    url: https://docs.gupshup.io/reference/msg
+  - type: PostmanCollection
+    url: collections/gupshup.postman_collection.json
+  - type: OpenCollection
+    url: collections/gupshup.opencollection.json
+  - type: Documentation
+    url: https://docs.gupshup.io/docs/template-messages
+  - type: Documentation
+    url: https://docs.gupshup.io/docs/optin-message
+- aid: gupshup:gupshup-templates-api
+  name: Gupshup Templates API
+  description: Send and list WhatsApp template (HSM) messages.
+  humanURL: https://docs.gupshup.io/reference/msg
+  baseURL: https://api.gupshup.io/wa/api/v1
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/gupshup-templates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.gupshup.io/docs/whatsapp-api-introduction
+  - type: APIReference
+    url: https://docs.gupshup.io/reference/msg
+  - type: PostmanCollection
+    url: collections/gupshup.postman_collection.json
+  - type: OpenCollection
+    url: collections/gupshup.opencollection.json
+  - type: Documentation
+    url: https://docs.gupshup.io/docs/template-messages
+  - type: Documentation
+    url: https://docs.gupshup.io/docs/optin-message
 common:
 - type: AgenticAccess
   url: agentic-access/gupshup-agentic-access.yml
