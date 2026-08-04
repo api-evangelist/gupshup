@@ -1,0 +1,18 @@
+{
+  "provider": "gupshup",
+  "sources": [
+    "gupshup-messaging-api-openapi.yml",
+    "gupshup-opt-in-api-openapi.yml",
+    "gupshup-templates-api-openapi.yml"
+  ],
+  "outputs": [
+    "gupshup-messaging-api-openapi.yml",
+    "gupshup-opt-in-api-openapi.yml",
+    "gupshup-templates-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
