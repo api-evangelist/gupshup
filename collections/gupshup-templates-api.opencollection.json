@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gupshup WhatsApp Business Messaging Templates API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send a WhatsApp template message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gupshup.io/wa/api/v1/template/msg",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Sends a pre-approved template (HSM) message to an opted-in user, used for business-initiated notifications outside the 24-hour session window. Confirmed endpoint."
+        },
+        {
+          "info": {
+            "name": "List an app's templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gupshup.io/wa/api/v1/template/list/:appName",
+            "params": [
+              {
+                "name": "appName",
+                "value": "",
+                "type": "path",
+                "description": "The Gupshup app name registered to the WhatsApp business number."
+              }
+            ]
+          },
+          "docs": "Returns the message templates registered for an app along with their approval status. Modeled from documentation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

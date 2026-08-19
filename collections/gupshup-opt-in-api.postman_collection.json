@@ -1,0 +1,587 @@
+{
+  "item": [
+    {
+      "id": "60b59f52-eb6e-462d-a152-06f8880e9f78",
+      "name": "Opt-In",
+      "description": {
+        "content": "Manage user opt-in / opt-out and list interacted users.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0d35e220-3bee-420f-9f4d-64d39c6f30de",
+          "name": "Mark a user opt-in",
+          "request": {
+            "name": "Mark a user opt-in",
+            "description": {
+              "content": "Records that a user has consented to receive messages from the business, enabling template notifications to that number. Modeled from documentation. Legacy opt-in APIs are not supported for apps created after Aug 2025.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "app",
+                "opt",
+                "in",
+                ":appName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appName",
+                  "description": "(Required) The Gupshup app name registered to the WhatsApp business number."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "user",
+                  "value": "<string>",
+                  "description": "(Required) The user's phone number (with country code) to opt in or out."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cf2dcdb7-9034-4b5c-aa22-fd9414535492",
+              "name": "Opt-in recorded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "app",
+                    "opt",
+                    "in",
+                    ":appName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appName",
+                      "description": "(Required) The Gupshup app name registered to the WhatsApp business number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The user's phone number (with country code) to opt in or out.",
+                        "type": "text/plain"
+                      },
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "743c1dd7-01af-4e83-a83c-62b51eab211e",
+              "name": "Missing or invalid apikey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "app",
+                    "opt",
+                    "in",
+                    ":appName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appName",
+                      "description": "(Required) The Gupshup app name registered to the WhatsApp business number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The user's phone number (with country code) to opt in or out.",
+                        "type": "text/plain"
+                      },
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "250d00c6-9229-4688-bf02-f7ef7b6c7c9e",
+          "name": "Mark a user opt-out",
+          "request": {
+            "name": "Mark a user opt-out",
+            "description": {
+              "content": "Records that a user has opted out of receiving messages from the business. Modeled from documentation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "app",
+                "opt",
+                "out",
+                ":appName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appName",
+                  "description": "(Required) The Gupshup app name registered to the WhatsApp business number."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "user",
+                  "value": "<string>",
+                  "description": "(Required) The user's phone number (with country code) to opt in or out."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f5b3d6ed-01c7-4931-9749-3ac0aa8aaee1",
+              "name": "Opt-out recorded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "app",
+                    "opt",
+                    "out",
+                    ":appName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appName",
+                      "description": "(Required) The Gupshup app name registered to the WhatsApp business number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The user's phone number (with country code) to opt in or out.",
+                        "type": "text/plain"
+                      },
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b8e7add-5733-48fb-a472-39991ea24c64",
+              "name": "Missing or invalid apikey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "app",
+                    "opt",
+                    "out",
+                    ":appName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appName",
+                      "description": "(Required) The Gupshup app name registered to the WhatsApp business number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The user's phone number (with country code) to opt in or out.",
+                        "type": "text/plain"
+                      },
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c14fe9cd-8f67-471a-8833-70accbdece68",
+          "name": "List interacted users and opt-in status",
+          "request": {
+            "name": "List interacted users and opt-in status",
+            "description": {
+              "content": "Returns the users who have interacted with your business phone number and their opt-in status. Modeled from documentation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":appName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appName",
+                  "description": "(Required) The Gupshup app name registered to the WhatsApp business number."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "928a474e-f45d-4301-aa0e-e850b4d46e72",
+              "name": "A list of users.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":appName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appName",
+                      "description": "(Required) The Gupshup app name registered to the WhatsApp business number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"users\": [\n    {\n      \"phoneCode\": \"string\",\n      \"phoneNumber\": \"string\",\n      \"optinStatus\": \"string\",\n      \"lastInteraction\": \"string\"\n    },\n    {\n      \"phoneCode\": \"string\",\n      \"phoneNumber\": \"string\",\n      \"optinStatus\": \"string\",\n      \"lastInteraction\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01665770-a5d5-4614-a314-0386db45d0a2",
+              "name": "Missing or invalid apikey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":appName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appName",
+                      "description": "(Required) The Gupshup app name registered to the WhatsApp business number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.gupshup.io/wa/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4afbd7be-7ac1-4866-a778-6a86fd7b800d",
+    "name": "Gupshup WhatsApp Business Messaging Opt-In API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for sending and managing WhatsApp Business messages through Gupshup. Messages are sent from a registered WhatsApp Business number that is bound to a Gupshup app; requests are authenticated with an `apikey` header tied to your Gupshup account. This document models the WhatsApp messaging surface on `https://api.gupshup.io/wa/api/v1` - sending session messages, sending pre-approved template (HSM) messages, managing user opt-in / opt-out, listing opted-in users, and listing an app's templates.\n\nScope and honesty note: the send-message (`POST /msg`) and send-template (`POST /template/msg`) operations are confirmed against Gupshup's public API reference. The opt-in / opt-out, users, and template-list operations are documented in Gupshup's WhatsApp API guide (historically under the `/sm` path, now migrating to the `/wa` path shown here); their request and response bodies are MODELED from the documentation rather than copied from a machine-readable source, and Gupshup uses `application/x-www-form-urlencoded` request bodies. Verify exact field names and response shapes against the live documentation before relying on this specification.\n\nContact Support:\n Name: Gupshup",
+      "type": "text/plain"
+    }
+  }
+}

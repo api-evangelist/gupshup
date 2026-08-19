@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gupshup WhatsApp Business Messaging Opt-In API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Opt-In",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Mark a user opt-in",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gupshup.io/wa/api/v1/app/opt/in/:appName",
+            "params": [
+              {
+                "name": "appName",
+                "value": "",
+                "type": "path",
+                "description": "The Gupshup app name registered to the WhatsApp business number."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Records that a user has consented to receive messages from the business, enabling template notifications to that number. Modeled from documentation. Legacy opt-in APIs are not supported for apps created after Aug 2025."
+        },
+        {
+          "info": {
+            "name": "Mark a user opt-out",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gupshup.io/wa/api/v1/app/opt/out/:appName",
+            "params": [
+              {
+                "name": "appName",
+                "value": "",
+                "type": "path",
+                "description": "The Gupshup app name registered to the WhatsApp business number."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Records that a user has opted out of receiving messages from the business. Modeled from documentation."
+        },
+        {
+          "info": {
+            "name": "List interacted users and opt-in status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gupshup.io/wa/api/v1/users/:appName",
+            "params": [
+              {
+                "name": "appName",
+                "value": "",
+                "type": "path",
+                "description": "The Gupshup app name registered to the WhatsApp business number."
+              }
+            ]
+          },
+          "docs": "Returns the users who have interacted with your business phone number and their opt-in status. Modeled from documentation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

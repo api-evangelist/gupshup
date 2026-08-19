@@ -1,0 +1,587 @@
+{
+  "item": [
+    {
+      "id": "b9b73e96-9663-4e73-892f-f397986cf971",
+      "name": "Templates",
+      "description": {
+        "content": "Send and list WhatsApp template (HSM) messages.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3cdb0281-f339-4de1-8cda-6415a6f0d453",
+          "name": "Send a WhatsApp template message",
+          "request": {
+            "name": "Send a WhatsApp template message",
+            "description": {
+              "content": "Sends a pre-approved template (HSM) message to an opted-in user, used for business-initiated notifications outside the 24-hour session window. Confirmed endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "template",
+                "msg"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "(Required) Registered WhatsApp Business phone number."
+                },
+                {
+                  "disabled": false,
+                  "key": "destination",
+                  "value": "<string>",
+                  "description": "(Required) Recipient phone number (must be opted-in)."
+                },
+                {
+                  "disabled": false,
+                  "key": "template",
+                  "value": "<string>",
+                  "description": "(Required) JSON-encoded template object referencing an approved template id and its parameter values, e.g. {\"id\":\"<template-id>\",\"params\":[\"value1\",\"value2\"]}."
+                },
+                {
+                  "disabled": false,
+                  "key": "src.name",
+                  "value": "<string>",
+                  "description": "(Required) Gupshup app name registered to the source number."
+                },
+                {
+                  "disabled": false,
+                  "key": "message",
+                  "value": "<string>",
+                  "description": "Optional JSON-encoded media header object for media templates (image / document / video)."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0169fd2f-4f4f-44c6-97f9-5a75f871b512",
+              "name": "Template message accepted for asynchronous delivery.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "template",
+                    "msg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "whatsapp"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Registered WhatsApp Business phone number.",
+                        "type": "text/plain"
+                      },
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Recipient phone number (must be opted-in).",
+                        "type": "text/plain"
+                      },
+                      "key": "destination",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) JSON-encoded template object referencing an approved template id and its parameter values, e.g. {\"id\":\"<template-id>\",\"params\":[\"value1\",\"value2\"]}.",
+                        "type": "text/plain"
+                      },
+                      "key": "template",
+                      "value": "{\"id\":\"00000000-0000-0000-0000-000000000000\",\"params\":[\"Kin\",\"ORD-42\"]}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Gupshup app name registered to the source number.",
+                        "type": "text/plain"
+                      },
+                      "key": "src.name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional JSON-encoded media header object for media templates (image / document / video).",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"submitted\",\n  \"messageId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82cfae5f-a39e-4e2e-919e-8666f8c0c8bd",
+              "name": "The request was malformed or missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "template",
+                    "msg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "whatsapp"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Registered WhatsApp Business phone number.",
+                        "type": "text/plain"
+                      },
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Recipient phone number (must be opted-in).",
+                        "type": "text/plain"
+                      },
+                      "key": "destination",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) JSON-encoded template object referencing an approved template id and its parameter values, e.g. {\"id\":\"<template-id>\",\"params\":[\"value1\",\"value2\"]}.",
+                        "type": "text/plain"
+                      },
+                      "key": "template",
+                      "value": "{\"id\":\"00000000-0000-0000-0000-000000000000\",\"params\":[\"Kin\",\"ORD-42\"]}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Gupshup app name registered to the source number.",
+                        "type": "text/plain"
+                      },
+                      "key": "src.name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional JSON-encoded media header object for media templates (image / document / video).",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8a4db28-1fd2-4a7a-82d6-75652e119c76",
+              "name": "Missing or invalid apikey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "template",
+                    "msg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "whatsapp"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Registered WhatsApp Business phone number.",
+                        "type": "text/plain"
+                      },
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Recipient phone number (must be opted-in).",
+                        "type": "text/plain"
+                      },
+                      "key": "destination",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) JSON-encoded template object referencing an approved template id and its parameter values, e.g. {\"id\":\"<template-id>\",\"params\":[\"value1\",\"value2\"]}.",
+                        "type": "text/plain"
+                      },
+                      "key": "template",
+                      "value": "{\"id\":\"00000000-0000-0000-0000-000000000000\",\"params\":[\"Kin\",\"ORD-42\"]}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Gupshup app name registered to the source number.",
+                        "type": "text/plain"
+                      },
+                      "key": "src.name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional JSON-encoded media header object for media templates (image / document / video).",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1cf211b-0520-4253-9b8d-3e1cfa0c7a29",
+          "name": "List an app's templates",
+          "request": {
+            "name": "List an app's templates",
+            "description": {
+              "content": "Returns the message templates registered for an app along with their approval status. Modeled from documentation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "template",
+                "list",
+                ":appName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appName",
+                  "description": "(Required) The Gupshup app name registered to the WhatsApp business number."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2c67b8e-74fc-490f-89d3-6f914ab53e02",
+              "name": "A list of templates.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "template",
+                    "list",
+                    ":appName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appName",
+                      "description": "(Required) The Gupshup app name registered to the WhatsApp business number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"templates\": [\n    {\n      \"id\": \"string\",\n      \"elementName\": \"string\",\n      \"category\": \"string\",\n      \"status\": \"string\",\n      \"languageCode\": \"string\",\n      \"data\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"elementName\": \"string\",\n      \"category\": \"string\",\n      \"status\": \"string\",\n      \"languageCode\": \"string\",\n      \"data\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cad61e3a-84ba-4596-ade6-79975721945f",
+              "name": "Missing or invalid apikey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "template",
+                    "list",
+                    ":appName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appName",
+                      "description": "(Required) The Gupshup app name registered to the WhatsApp business number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.gupshup.io/wa/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7c4428d2-8c41-4e1b-9d3f-337cbb372749",
+    "name": "Gupshup WhatsApp Business Messaging Templates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for sending and managing WhatsApp Business messages through Gupshup. Messages are sent from a registered WhatsApp Business number that is bound to a Gupshup app; requests are authenticated with an `apikey` header tied to your Gupshup account. This document models the WhatsApp messaging surface on `https://api.gupshup.io/wa/api/v1` - sending session messages, sending pre-approved template (HSM) messages, managing user opt-in / opt-out, listing opted-in users, and listing an app's templates.\n\nScope and honesty note: the send-message (`POST /msg`) and send-template (`POST /template/msg`) operations are confirmed against Gupshup's public API reference. The opt-in / opt-out, users, and template-list operations are documented in Gupshup's WhatsApp API guide (historically under the `/sm` path, now migrating to the `/wa` path shown here); their request and response bodies are MODELED from the documentation rather than copied from a machine-readable source, and Gupshup uses `application/x-www-form-urlencoded` request bodies. Verify exact field names and response shapes against the live documentation before relying on this specification.\n\nContact Support:\n Name: Gupshup",
+      "type": "text/plain"
+    }
+  }
+}

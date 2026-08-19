@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gupshup WhatsApp Business Messaging API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messaging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send a WhatsApp session message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gupshup.io/wa/api/v1/msg",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Sends a WhatsApp message from a registered business number to a recipient. The `message` field is a JSON-encoded object whose `type` selects the message kind (text, image, file, audio, video, sticker, location, contact, or interactive list / quick reply). Confirmed endpoint. Cannot be called directly from a browser / client-side JS."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
