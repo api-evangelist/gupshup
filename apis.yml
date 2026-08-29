@@ -10,6 +10,18 @@ description: Gupshup is a conversational messaging and CPaaS platform (headquart
   templates, media, and inbound webhooks) - authenticated with an apikey header and
   scoped to a registered app. Separate SMS, RCS, and Partner API surfaces are also
   documented.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
