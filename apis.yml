@@ -94,6 +94,10 @@ apis:
 - aid: gupshup:gupshup-partner-api
   name: Gupshup Partner API
   tags:
+  - Partners
+  - WhatsApp
+  - Passthrough
+  tags_raw:
   - Partner
   - WhatsApp
   - Passthrough
@@ -135,6 +139,8 @@ apis:
   humanURL: https://docs.gupshup.io/reference/msg
   baseURL: https://api.gupshup.io/wa/api/v1
   tags:
+  - Opt In
+  tags_raw:
   - Opt-In
   properties:
   - type: OpenAPI
