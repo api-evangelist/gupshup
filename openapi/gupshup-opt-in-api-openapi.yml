@@ -1,10 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Gupshup WhatsApp Business Messaging Opt-In API
-  description: 'REST API for sending and managing WhatsApp Business messages through Gupshup. Messages are sent from a registered WhatsApp Business number that is bound to a Gupshup app; requests are authenticated with an `apikey` header tied to your Gupshup account. This document models the WhatsApp messaging surface on `https://api.gupshup.io/wa/api/v1` - sending session messages, sending pre-approved template (HSM) messages, managing user opt-in / opt-out, listing opted-in users, and listing an app''s templates.
-
-
-    Scope and honesty note: the send-message (`POST /msg`) and send-template (`POST /template/msg`) operations are confirmed against Gupshup''s public API reference. The opt-in / opt-out, users, and template-list operations are documented in Gupshup''s WhatsApp API guide (historically under the `/sm` path, now migrating to the `/wa` path shown here); their request and response bodies are MODELED from the documentation rather than copied from a machine-readable source, and Gupshup uses `application/x-www-form-urlencoded` request bodies. Verify exact field names and response shapes against the live documentation before relying on this specification.'
+  title: Gupshup WhatsApp Business Opt In API
+  description: REST API for sending and managing WhatsApp Business messages through Gupshup.
   version: '1.0'
   contact:
     name: Gupshup
@@ -16,7 +13,7 @@ servers:
 security:
 - apiKeyAuth: []
 tags:
-- name: Opt-In
+- name: Opt In
   description: Manage user opt-in / opt-out and list interacted users.
 paths:
   /app/opt/in/{appName}:
@@ -25,7 +22,7 @@ paths:
     post:
       operationId: markUserOptIn
       tags:
-      - Opt-In
+      - Opt In
       summary: Mark a user opt-in
       description: Records that a user has consented to receive messages from the business, enabling template notifications to that number. Modeled from documentation. Legacy opt-in APIs are not supported for apps created after Aug 2025.
       requestBody:
@@ -49,7 +46,7 @@ paths:
     post:
       operationId: markUserOptOut
       tags:
-      - Opt-In
+      - Opt In
       summary: Mark a user opt-out
       description: Records that a user has opted out of receiving messages from the business. Modeled from documentation.
       requestBody:
@@ -73,7 +70,7 @@ paths:
     get:
       operationId: listUsers
       tags:
-      - Opt-In
+      - Opt In
       summary: List interacted users and opt-in status
       description: Returns the users who have interacted with your business phone number and their opt-in status. Modeled from documentation.
       responses:
@@ -87,6 +84,14 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    OptRequest:
+      type: object
+      required:
+      - user
+      properties:
+        user:
+          type: string
+          description: The user's phone number (with country code) to opt in or out.
     UserListResponse:
       type: object
       properties:
@@ -97,6 +102,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
+    StatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
     User:
       type: object
       properties:
@@ -110,20 +121,6 @@ components:
         lastInteraction:
           type: string
           description: Timestamp of the user's last interaction.
-    StatusResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-    OptRequest:
-      type: object
-      required:
-      - user
-      properties:
-        user:
-          type: string
-          description: The user's phone number (with country code) to opt in or out.
     Error:
       type: object
       properties:
