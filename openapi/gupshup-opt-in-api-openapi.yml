@@ -84,14 +84,14 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    OptRequest:
+    Error:
       type: object
-      required:
-      - user
       properties:
-        user:
+        status:
           type: string
-          description: The user's phone number (with country code) to opt in or out.
+          example: error
+        message:
+          type: string
     UserListResponse:
       type: object
       properties:
@@ -102,6 +102,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
+    OptRequest:
+      type: object
+      required:
+      - user
+      properties:
+        user:
+          type: string
+          description: The user's phone number (with country code) to opt in or out.
     StatusResponse:
       type: object
       properties:
@@ -121,21 +129,6 @@ components:
         lastInteraction:
           type: string
           description: Timestamp of the user's last interaction.
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          example: error
-        message:
-          type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid apikey.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     AppName:
       name: appName
@@ -144,6 +137,13 @@ components:
       description: The Gupshup app name registered to the WhatsApp business number.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid apikey.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

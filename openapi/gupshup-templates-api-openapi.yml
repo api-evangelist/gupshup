@@ -60,6 +60,51 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+    SendMessageResponse:
+      type: object
+      description: Asynchronous accept response carrying a Gupshup message identifier.
+      properties:
+        status:
+          type: string
+          example: submitted
+        messageId:
+          type: string
+          description: Gupshup unique message identifier used to correlate webhook delivery events.
+    Template:
+      type: object
+      properties:
+        id:
+          type: string
+        elementName:
+          type: string
+        category:
+          type: string
+        status:
+          type: string
+          description: Approval status (e.g. APPROVED, PENDING, REJECTED).
+        languageCode:
+          type: string
+        data:
+          type: string
+          description: Template body text with placeholders.
+    TemplateListResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
     SendTemplateRequest:
       type: object
       required:
@@ -88,51 +133,6 @@ components:
         src.name:
           type: string
           description: Gupshup app name registered to the source number.
-    Template:
-      type: object
-      properties:
-        id:
-          type: string
-        elementName:
-          type: string
-        category:
-          type: string
-        status:
-          type: string
-          description: Approval status (e.g. APPROVED, PENDING, REJECTED).
-        languageCode:
-          type: string
-        data:
-          type: string
-          description: Template body text with placeholders.
-    TemplateListResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/Template'
-    SendMessageResponse:
-      type: object
-      description: Asynchronous accept response carrying a Gupshup message identifier.
-      properties:
-        status:
-          type: string
-          example: submitted
-        messageId:
-          type: string
-          description: Gupshup unique message identifier used to correlate webhook delivery events.
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          example: error
-        message:
-          type: string
   parameters:
     AppName:
       name: appName
