@@ -59,15 +59,20 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: The request was malformed or missing required parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid apikey.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          example: error
-        message:
-          type: string
     SendMessageResponse:
       type: object
       description: Asynchronous accept response carrying a Gupshup message identifier.
@@ -78,33 +83,6 @@ components:
         messageId:
           type: string
           description: Gupshup unique message identifier used to correlate webhook delivery events.
-    Template:
-      type: object
-      properties:
-        id:
-          type: string
-        elementName:
-          type: string
-        category:
-          type: string
-        status:
-          type: string
-          description: Approval status (e.g. APPROVED, PENDING, REJECTED).
-        languageCode:
-          type: string
-        data:
-          type: string
-          description: Template body text with placeholders.
-    TemplateListResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/Template'
     SendTemplateRequest:
       type: object
       required:
@@ -133,6 +111,41 @@ components:
         src.name:
           type: string
           description: Gupshup app name registered to the source number.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+    TemplateListResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
+    Template:
+      type: object
+      properties:
+        id:
+          type: string
+        elementName:
+          type: string
+        category:
+          type: string
+        status:
+          type: string
+          description: Approval status (e.g. APPROVED, PENDING, REJECTED).
+        languageCode:
+          type: string
+        data:
+          type: string
+          description: Template body text with placeholders.
   parameters:
     AppName:
       name: appName
@@ -141,19 +154,6 @@ components:
       description: The Gupshup app name registered to the WhatsApp business number.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid apikey.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or missing required parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -83,7 +83,33 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid apikey.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    User:
+      type: object
+      properties:
+        phoneCode:
+          type: string
+        phoneNumber:
+          type: string
+        optinStatus:
+          type: string
+          description: Whether the user is opted in.
+        lastInteraction:
+          type: string
+          description: Timestamp of the user's last interaction.
+    StatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
     Error:
       type: object
       properties:
@@ -110,25 +136,6 @@ components:
         user:
           type: string
           description: The user's phone number (with country code) to opt in or out.
-    StatusResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-    User:
-      type: object
-      properties:
-        phoneCode:
-          type: string
-        phoneNumber:
-          type: string
-        optinStatus:
-          type: string
-          description: Whether the user is opted in.
-        lastInteraction:
-          type: string
-          description: Timestamp of the user's last interaction.
   parameters:
     AppName:
       name: appName
@@ -137,13 +144,6 @@ components:
       description: The Gupshup app name registered to the WhatsApp business number.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid apikey.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey
