@@ -59,30 +59,25 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    BadRequest:
-      description: The request was malformed or missing required parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid apikey.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    SendMessageResponse:
+    Error:
       type: object
-      description: Asynchronous accept response carrying a Gupshup message identifier.
       properties:
         status:
           type: string
-          example: submitted
-        messageId:
+          example: error
+        message:
           type: string
-          description: Gupshup unique message identifier used to correlate webhook delivery events.
+    TemplateListResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
     SendTemplateRequest:
       type: object
       required:
@@ -111,24 +106,6 @@ components:
         src.name:
           type: string
           description: Gupshup app name registered to the source number.
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          example: error
-        message:
-          type: string
-    TemplateListResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/Template'
     Template:
       type: object
       properties:
@@ -146,6 +123,29 @@ components:
         data:
           type: string
           description: Template body text with placeholders.
+    SendMessageResponse:
+      type: object
+      description: Asynchronous accept response carrying a Gupshup message identifier.
+      properties:
+        status:
+          type: string
+          example: submitted
+        messageId:
+          type: string
+          description: Gupshup unique message identifier used to correlate webhook delivery events.
+  responses:
+    Unauthorized:
+      description: Missing or invalid apikey.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or missing required parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     AppName:
       name: appName

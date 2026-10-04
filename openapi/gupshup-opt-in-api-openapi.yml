@@ -83,14 +83,23 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid apikey.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+    OptRequest:
+      type: object
+      required:
+      - user
+      properties:
+        user:
+          type: string
+          description: The user's phone number (with country code) to opt in or out.
     User:
       type: object
       properties:
@@ -104,20 +113,6 @@ components:
         lastInteraction:
           type: string
           description: Timestamp of the user's last interaction.
-    StatusResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          example: error
-        message:
-          type: string
     UserListResponse:
       type: object
       properties:
@@ -128,14 +123,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
-    OptRequest:
+    StatusResponse:
       type: object
-      required:
-      - user
       properties:
-        user:
+        status:
           type: string
-          description: The user's phone number (with country code) to opt in or out.
+          example: success
+  responses:
+    Unauthorized:
+      description: Missing or invalid apikey.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     AppName:
       name: appName
