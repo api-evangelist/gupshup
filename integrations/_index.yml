@@ -31,7 +31,7 @@
   channel: distribution
   evidence: https://aws.amazon.com/marketplace/seller-profile?id=3b795d24-3c60-43df-a67b-6892db3fd8cb
   source: edge
-  relationship: platform-app
+  relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
 - slug: gupshup-microsoft-azure-marketplace
@@ -43,6 +43,6 @@
   channel: distribution
   evidence: https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=GUPSHUP%20TECHNOLOGY%20INDIA%20PRIVATE%20LIMITED
   source: edge
-  relationship: platform-app
+  relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
