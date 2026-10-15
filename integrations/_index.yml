@@ -71,7 +71,7 @@
     builder: unknown (not in the directory record)
     other_apps:
     - gupshup-for-business
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: gupshup-pipedream
   label: Pipedream
@@ -97,7 +97,7 @@
     actions: true
     sources: false
     builder: Pipedream repo (component)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: gupshup-wordpress-own
   label: WordPress (own)
