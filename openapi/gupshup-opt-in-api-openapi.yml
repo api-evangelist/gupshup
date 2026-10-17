@@ -84,6 +84,12 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    StatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
     Error:
       type: object
       properties:
@@ -123,19 +129,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
-    StatusResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-  responses:
-    Unauthorized:
-      description: Missing or invalid apikey.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     AppName:
       name: appName
@@ -144,6 +137,13 @@ components:
       description: The Gupshup app name registered to the WhatsApp business number.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid apikey.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey
