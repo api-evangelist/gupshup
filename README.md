@@ -1,4 +1,4 @@
-# Gupshup (gupshup)
+# Gupshup
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,157 +64,124 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Gupshup is a conversational messaging and CPaaS platform (headquartered in India) that lets businesses send and receive messages across WhatsApp, SMS, RCS, and other channels, plus build chatbots and conversational AI journeys. The developer platform exposes REST APIs on `api.gupshup.io` - most prominently the WhatsApp Business API (send session and template messages, opt-in management, templates, media, and inbound webhooks) - authenticated with an `apikey` header and scoped to a registered app. Separate SMS, RCS, and Partner API surfaces are also documented.
+Gupshup is a conversational messaging and CPaaS platform (headquartered in India) that lets businesses send and receive messages across WhatsApp, SMS, RCS, and other channels, plus build chatbots and conversational AI journeys. The developer platform exposes REST APIs on api.gupshup.io - most prominently the WhatsApp Business API (send session and template messages, opt-in management, templates, media, and inbound webhooks) - authenticated with an apikey header and scoped to a registered app. Separate SMS, RCS, and Partner API surfaces are also documented.
 
-**Access model:** Self-serve. Sign up, create an app, link a WhatsApp Business number, and get an account `apikey` from the dashboard. The `apikey` is sent as an HTTP header on every request and scopes calls to your account; operations reference the app by name (`src.name` field or the `appName` path segment). Messages are accepted asynchronously and return a `messageId`; delivery and inbound events are pushed to a callback URL / Subscription you host (inbound webhooks, not WebSocket). The Partner API (`partner.gupshup.io`) uses a partner token / app access token instead of the per-app `apikey`.
+**Areas:** Messaging · WhatsApp · Conversational AI · CPaaS · SMS · RCS · India · Chatbots · Business Messaging · Communications
 
-**Honesty note:** The send-message (`POST /wa/api/v1/msg`) and send-template (`POST /wa/api/v1/template/msg`) operations are confirmed against Gupshup's public API reference. The opt-in / opt-out, users, and template-list operations are documented in Gupshup's WhatsApp API guide (historically under the `/sm` path, now migrating to `/wa`); their request/response schemas are modeled from prose documentation. The SMS `/sm` surface is being retired (end-of-life announced), and RCS is served through the onboarding-gated Gupshup Enterprise gateway rather than the `apikey` REST surface — those are listed as documented channels but are not modeled in the OpenAPI.
+## Gupshup on APIs.io
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/gupshup/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/gupshup/refs/heads/main/apis.yml)
+Everything profiled for Gupshup is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/gupshup/](https://apis.io/providers/gupshup/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (6)
 
-- Messaging
-- WhatsApp
-- Conversational AI
-- CPaaS
-- SMS
-- RCS
-- India
-- Chatbots
-- Business Messaging
-- Communications
+- [Gupshup SMS API](https://apis.io/apis/gupshup/gupshup-sms-api/) — Broadcast SMS to a single number or many numbers programmatically via POST /msg on the /sm surface. Note - Gupshup has announced end-of-life for the /sm…
+- [Gupshup RCS API](https://apis.io/apis/gupshup/gupshup-rcs-api/) — Send RCS (Rich Communication Services) business messages - rich cards, carousels, suggested replies, and media. RCS is onboarding-gated (username / password…
+- [Gupshup Partner API](https://apis.io/apis/gupshup/gupshup-partner-api/) — Token-authenticated Partner surface (partner.gupshup.io) for BSPs and resellers - manage apps, templates, subscriptions/callbacks, and send messages through…
+- [Gupshup Messaging API](https://apis.io/apis/gupshup/gupshup-messaging-api/) — Send WhatsApp session messages.
+- [Gupshup Opt-In API](https://apis.io/apis/gupshup/gupshup-opt-in-api/) — Manage user opt-in / opt-out and list interacted users.
+- [Gupshup Templates API](https://apis.io/apis/gupshup/gupshup-templates-api/) — Send and list WhatsApp template (HSM) messages.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-07-12
-- **Modified:** 2026-07-12
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Gupshup WhatsApp Messaging API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Send session (user-initiated, 24-hour window) WhatsApp messages of many types - text, image, file, audio, video, sticker, location, contact, and interactive list / quick-reply - from a registered WhatsApp Business number via `POST /msg`, with delivery events returned to your webhook.
+- [Gupshup Agentic Access](https://apis.io/agentic-access/gupshup/gupshup-agentic-access/)
 
-- **Human URL:** [https://docs.gupshup.io/reference/msg](https://docs.gupshup.io/reference/msg)
-- **Base URL:** `https://api.gupshup.io/wa/api/v1`
+#### Collections (4)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- WhatsApp
-- Messaging
-- Business Messaging
+- [Gupshup WhatsApp Business API](https://apis.io/collections/gupshup/open-gupshup/)
+- [Gupshup WhatsApp Business Messaging API](https://apis.io/collections/gupshup/open-gupshup-messaging-api/)
+- [Gupshup WhatsApp Business Messaging Opt-In API](https://apis.io/collections/gupshup/open-gupshup-opt-in-api/)
+- [Gupshup WhatsApp Business Messaging Templates API](https://apis.io/collections/gupshup/open-gupshup-templates-api/)
 
-#### Properties
+#### Security (2)
 
-- [Documentation](https://docs.gupshup.io/docs/whatsapp-api-introduction)
-- [API Reference](https://docs.gupshup.io/reference/msg)
-- [OpenAPI](openapi/gupshup-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/gupshup.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gupshup.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Gupshup WhatsApp Template Messaging API
+- [Gupshup Authentication](https://apis.io/security/gupshup/gupshup-authentication/)
+- [Gupshup Domain Security](https://apis.io/security/gupshup/gupshup-domain-security/)
 
-Send pre-approved WhatsApp template (HSM) messages to opted-in users outside the 24-hour session window via `POST /template/msg`, and list an app's templates and their approval status via `GET /template/list/{appName}`.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://docs.gupshup.io/docs/template-messages](https://docs.gupshup.io/docs/template-messages)
-- **Base URL:** `https://api.gupshup.io/wa/api/v1`
+Published plans, tiers and prices.
 
-#### Tags
+- [Gupshup Plans Pricing](https://apis.io/plans/gupshup/gupshup-plans-pricing/)
 
-- WhatsApp
-- Templates
-- Notifications
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [Documentation](https://docs.gupshup.io/docs/template-messages)
-- [OpenAPI](openapi/gupshup-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/gupshup.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Gupshup Rate Limits](https://apis.io/rate-limits/gupshup/gupshup-rate-limits/)
 
-### Gupshup WhatsApp Opt-In Management API
+#### FinOps (1)
 
-Mark a user as opted-in or opted-out for an app and list the users who have interacted with your business number and their opt-in status. Required before template notifications can be delivered. Legacy opt-in/opt-out APIs are not supported for apps created after Aug 2025.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://docs.gupshup.io/docs/optin-message](https://docs.gupshup.io/docs/optin-message)
-- **Base URL:** `https://api.gupshup.io/wa/api/v1`
+- [Gupshup Finops](https://apis.io/finops/gupshup/gupshup-finops/)
 
-#### Tags
+## Where to find this API
 
-- WhatsApp
-- Opt-In
-- Consent
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Properties
-
-- [Documentation](https://docs.gupshup.io/docs/optin-message)
-- [OpenAPI](openapi/gupshup-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-
-### Gupshup SMS API
-
-Broadcast SMS to a single number or many numbers programmatically via `POST /msg` on the `/sm` surface. Note - Gupshup has announced end-of-life for the `/sm` endpoints and recommends migrating SMS traffic to the `/wa` messaging surface.
-
-- **Human URL:** [https://docs.gupshup.io/docs/sms-api-introduction](https://docs.gupshup.io/docs/sms-api-introduction)
-- **Base URL:** `https://api.gupshup.io/sm/api/v1`
-
-#### Tags
-
-- SMS
-- Messaging
-- Notifications
-
-#### Properties
-
-- [Documentation](https://docs.gupshup.io/docs/sms-api-introduction)
-- [Documentation](https://docs.gupshup.io/docs/send-message-to-single-number)
-
-### Gupshup RCS API
-
-Send RCS (Rich Communication Services) business messages - rich cards, carousels, suggested replies, and media. RCS is onboarding-gated (username / password issued by Gupshup) and served through the Gupshup Enterprise messaging gateway rather than the apikey-based `api.gupshup.io` REST surface.
-
-- **Human URL:** [https://docs.gupshup.io/docs/rcs-api-introduction](https://docs.gupshup.io/docs/rcs-api-introduction)
-
-#### Tags
-
-- RCS
-- Rich Messaging
-- Business Messaging
-
-#### Properties
-
-- [Documentation](https://docs.gupshup.io/docs/rcs-api-introduction)
-- [API Reference](https://docs.gupshup.io/docs/send-rcs-message)
-
-### Gupshup Partner API
-
-Token-authenticated Partner surface (`partner.gupshup.io`) for BSPs and resellers - manage apps, templates, subscriptions/callbacks, and send messages through Meta-format passthrough endpoints (e.g. `POST /partner/app/{appId}/v3/message`). Uses a partner token / app access token rather than the per-app `apikey` header.
-
-- **Human URL:** [https://partner-docs.gupshup.io/docs/whatsapp-passthrough-apis-for-partners](https://partner-docs.gupshup.io/docs/whatsapp-passthrough-apis-for-partners)
-- **Base URL:** `https://partner.gupshup.io/partner`
-
-#### Tags
-
-- Partner
-- WhatsApp
-- Passthrough
-
-#### Properties
-
-- [Documentation](https://partner-docs.gupshup.io/docs/whatsapp-passthrough-apis-for-partners)
-
-## Common Properties
-
-- [Authentication](authentication/gupshup-authentication.yml)
-- [Domain Security](security/gupshup-domain-security.yml)
-- [LinkedIn](https://www.linkedin.com/company/gupshup)
 - [Website](https://www.gupshup.io)
 - [Documentation](https://docs.gupshup.io)
-- [Plans](plans/gupshup-plans-pricing.yml)
-- [Rate Limits](rate-limits/gupshup-rate-limits.yml)
-- [Fin Ops](finops/gupshup-finops.yml)
 - [Blog](https://www.gupshup.io/resources/blog)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 23.7** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 51.4 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 10.0** — Telecommunications
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/gupshup/](https://apis.io/providers/gupshup/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Gupshup: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/gupshup/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
